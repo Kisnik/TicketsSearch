@@ -16,16 +16,23 @@ public class TicketManager {
 
 
     public Ticket[] findAll(String from, String to) {
-        TicketRepository tmp = new TicketRepository();
+        int tmp = 0;
         for (Ticket item : ticketRepository.findAll()) {
-            if (item.getDeparture() == from) {
-                if (item.getArrival() == to) {
-                    tmp.save(item);
-                }
+            if ((item.getDeparture().equals(from))&&(item.getArrival().equals(to))) {
+                tmp++;
             }
         }
-        Arrays.sort(tmp.findAll());
-        return tmp.findAll();
+        Ticket[] result = new Ticket[tmp];
+
+        int i=0;
+        for (Ticket item : ticketRepository.findAll()) {
+            if ((item.getDeparture().equals(from))&&(item.getArrival().equals(to))) {
+                result[i] = item;
+                i++;
+            }
+        }
+        Arrays.sort(result);
+        return result;
     }
 
 }
